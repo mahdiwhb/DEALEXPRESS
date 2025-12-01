@@ -129,7 +129,8 @@ Méthode	URL	Description
 GET	/api/admin/users	Voir tous les utilisateurs
 PATCH	/api/admin/users/:id/role	Modifier un rôle
 PATCH	/api/admin/deals/:id/moderate	Changer le statut d’un deal
-🛢 6. Base de données (MongoDB)
+
+ 6. Base de données (MongoDB)
 
 Collections principales :
 
@@ -147,7 +148,7 @@ Exemple d’un document User
   "role": "admin"
 }
 
-🔐 7. Sécurité
+ 7. Sécurité
 
 Hash des mots de passe avec bcryptjs
 
@@ -161,10 +162,10 @@ Middleware authorizeRoles pour limiter l accès (moderator / admin)
 
 Chaque route est sécurisée avec express-validator :
 
-✔ login
-✔ register
-✔ création de deal
-✔ création de commentaire
+ login
+ register
+ création de deal
+ création de commentaire
 
  9. Tests via Thunder Client / Postman
 
