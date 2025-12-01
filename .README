@@ -1,0 +1,197 @@
+ DealExpress – API Backend (Node.js / Express / MongoDB)
+
+DealExpress est une API REST complète permettant de gérer des deals, votes, commentaires, utilisateurs, modérateurs et administrateurs.
+
+Ce projet a été développé dans le cadre d’un exercice pratique visant à mettre en place :
+
+un système d’authentification sécurisé (JWT)
+
+un CRUD complet sur les deals
+
+un système de modération
+
+un système de votes (hot / cold)
+
+un système de commentaires sur les deals
+
+une gestion des rôles (user / moderator / admin)
+
+une base de données MongoDB structurée
+
+ 1. Technologies utilisées
+
+Node.js
+
+Express.js
+
+MongoDB + Mongoose
+
+JWT (JSON Web Token)
+
+bcryptjs
+
+express-validator
+
+dotenv
+
+Nodemon (pour le développement)
+
+2. Structure du projet
+src/
+│
+├── app.js
+├── config/
+│   └── database.js
+│
+├── controllers/
+│   ├── auth.controller.js
+│   ├── deal.controller.js
+│   ├── comment.controller.js
+│   └── admin.controller.js
+│
+├── middlewares/
+│   ├── auth.middleware.js
+│   └── role.middleware.js
+│
+├── models/
+│   ├── User.js
+│   ├── Deal.js
+│   └── Comment.js
+│
+├── routes/
+│   ├── auth.routes.js
+│   ├── deals.routes.js
+│   ├── comments.routes.js
+│   └── admin.routes.js
+│
+└── validators/
+    ├── auth.validator.js
+    ├── deal.validator.js
+    └── comment.validator.js
+ 
+ 3. Installation
+1️ Cloner le projet
+git clone <URL_DU_REPO>
+cd dealexpress
+
+2️ Installer les dépendances
+npm install
+
+3️ Variables d’environnement
+
+Créer un fichier .env :
+
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/dealexpress
+JWT_SECRET=un_secret_tres_important
+JWT_EXPIRE=7d
+
+4️ Lancer le serveur
+npm run dev
+
+ 4. Authentification & Comptes
+
+L’API utilise JWT pour sécuriser les routes.
+
+Rôles disponibles :
+
+user → créer des deals, commenter, voter
+
+moderator → modérer les deals
+
+admin → gérer utilisateurs & rôles
+
+5. Endpoints principaux
+🔹 1. Authentification
+Méthode	URL	Description
+POST	/api/auth/register	Créer un compte
+POST	/api/auth/login	Se connecter
+GET	/api/auth/me	Voir son profil
+🔹 2. Deals
+Méthode	URL	Description
+GET	/api/deals	Voir les deals approuvés
+GET	/api/deals/:id	Voir un deal
+POST	/api/deals	Créer un deal
+PUT	/api/deals/:id	Modifier son deal
+DELETE	/api/deals/:id	Supprimer son deal
+🔹 3. Votes
+Méthode	URL	Description
+POST	/api/deals/:id/vote	Voter hot ou cold
+DELETE	/api/deals/:id/vote	Supprimer son vote
+🔹 4. Commentaires
+Méthode	URL	Description
+POST	/api/comments/:dealId	Créer un commentaire
+PUT	/api/comments/:id	Modifier un commentaire
+DELETE	/api/comments/:id	Supprimer un commentaire
+GET	/api/comments/:dealId	Voir les commentaires d’un deal
+🔹 5. Admin (role: admin)
+Méthode	URL	Description
+GET	/api/admin/users	Voir tous les utilisateurs
+PATCH	/api/admin/users/:id/role	Modifier un rôle
+PATCH	/api/admin/deals/:id/moderate	Changer le statut d’un deal
+🛢 6. Base de données (MongoDB)
+
+Collections principales :
+
+users
+
+deals
+
+comments
+
+Exemple d’un document User
+{
+  "_id": "692c9b8d6ee39e4418c77cf2",
+  "username": "mahdi1",
+  "email": "mahdi1@test.com",
+  "role": "admin"
+}
+
+🔐 7. Sécurité
+
+Hash des mots de passe avec bcryptjs
+
+Tokens JWT (expiration configurée)
+
+Middleware authenticate pour sécuriser les routes
+
+Middleware authorizeRoles pour limiter l accès (moderator / admin)
+
+8. Validation
+
+Chaque route est sécurisée avec express-validator :
+
+✔ login
+✔ register
+✔ création de deal
+✔ création de commentaire
+
+ 9. Tests via Thunder Client / Postman
+
+Le projet peut être testé en utilisant Thunder Client :
+
+Auth → Bearer token
+
+Body → JSON
+
+Tester toutes les routes CRUD
+
+Tester la modération
+
+Tester les rôles
+
+ 10. Points forts du projet
+
+Architecture MVC claire
+
+Auth & rôles avancés
+
+Modération intégrée
+
+Votes hot/cold avec logique intelligente
+
+Validation robuste
+
+Compatible front-end (React, Next.js, etc.)
+
+Code lisible, structuré, professionnel
