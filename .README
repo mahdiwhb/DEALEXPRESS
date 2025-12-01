@@ -196,3 +196,134 @@ Validation robuste
 Compatible front-end (React, Next.js, etc.)
 
 Code lisible, structuré, professionnel
+
+13. Comptes de test (User / Moderator / Admin)
+
+Pour faciliter les tests de l’API, trois comptes sont fournis :
+ 
+ USER – Compte utilisateur standard
+
+Ce compte permet :
+
+créer des deals
+
+commenter
+
+voter
+
+voir les deals approuvés
+
+Email : user@test.com
+Password : user123
+Role : user
+
+MODERATOR – Compte modérateur
+
+Ce compte permet :
+
+toutes les actions du user
+
+approuver / refuser les deals
+
+Email : moderator@test.com
+Password : moderator123
+Role : moderator
+
+ ADMIN – Compte administrateur
+
+Ce compte permet :
+
+toutes les actions du user
+
+voir tous les utilisateurs
+
+modifier les rôles
+
+modérer les deals
+
+supprimer n’importe quel contenu
+
+
+Email : mahdi1@test.com
+Password : admin123
+Role : admin
+
+14. Collection Postman / Thunder Client
+
+L’API est entièrement testable via Postman ou Thunder Client.
+La collection exportée inclut :
+
+Authentification (register, login, me)
+
+Gestion des deals (CRUD)
+
+Votes (hot/cold)
+
+Commentaires (CRUD)
+
+Modération
+
+Routes Admin (gestion des comptes & rôles)
+
+
+DealExpress API.postman_collection.json
+│
+├── Auth
+│   ├── Register
+│   ├── Login
+│   └── Me
+│
+├── Deals
+│   ├── Create Deal
+│   ├── Get Deals
+│   ├── Get Deal By ID
+│   ├── Update Deal
+│   └── Delete Deal
+│
+├── Votes
+│   ├── Vote Deal
+│   └── Remove Vote
+│
+├── Comments
+│   ├── Create Comment
+│   ├── Update Comment
+│   ├── Delete Comment
+│   └── Get Comments by Deal
+│
+└── Admin
+    ├── Get All Users
+    ├── Change User Role
+    └── Moderate Deal
+
+ 15. Comptes de test
+ 
+USER
+Email : user@test.com
+Password : user123
+Role : user
+
+MODERATOR
+Email : moderator@test.com
+Password : moderator123
+Role : moderator
+
+ADMIN
+Email : mahdi1@test.com
+Password : admin123
+Role : admin
+
+ Collection Postman
+
+Une collection Postman/Thunder Client est fournie pour tester :
+
+l’authentification
+
+la gestion des deals
+
+les votes
+
+les commentaires
+
+la modération
+
+les routes administrateurs
