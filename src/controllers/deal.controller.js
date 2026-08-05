@@ -1,5 +1,4 @@
 const { validationResult } = require("express-validator");
-const Deal = require("../models/Deal");
 const Vote = require("../models/Vote");
 const dealRepository = require("../repositories/dealRepository");
 
@@ -118,7 +117,7 @@ exports.getDeals = async (req, res) => {
         .skip(skip)
         .limit(limit)
         .populate("authorId", "username"),
-      Deal.countDocuments(filter),
+      dealRepository.countDocuments(filter),
     ]);
 
     res.json({
