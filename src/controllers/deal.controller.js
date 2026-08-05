@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const Deal = require("../models/Deal");
 const Vote = require("../models/Vote");
+const dealRepository = require("../repositories/dealRepository");
 
 // Recalcule la température d'un deal à partir des votes
 const calculateTemperature = async (dealId) => {
@@ -10,7 +11,7 @@ const calculateTemperature = async (dealId) => {
   ]);
 
   const temperature = hotCount - coldCount;
-  await Deal.findByIdAndUpdate(dealId, { temperature });
+  await dealRepository.updateById(dealId, { temperature });
 
   return { temperature, hotCount, coldCount };
 };
@@ -27,7 +28,7 @@ exports.voteDeal = async (req, res) => {
   }
 
   try {
-    const deal = await Deal.findById(dealId);
+    const deal = await dealRepository.findById(dealId);
     if (!deal) {
       return res.status(404).json({ message: "Deal non trouvé" });
     }
@@ -68,7 +69,7 @@ exports.removeVote = async (req, res) => {
   const dealId = req.params.id;
 
   try {
-    const deal = await Deal.findById(dealId);
+    const deal = await dealRepository.findById(dealId);
     if (!deal) {
       return res.status(404).json({ message: "Deal non trouvé" });
     }
@@ -112,7 +113,7 @@ exports.getDeals = async (req, res) => {
     }
 
     const [deals, total] = await Promise.all([
-      Deal.find(filter)
+      dealRepository.findAll(filter)
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
@@ -137,7 +138,7 @@ exports.getDeals = async (req, res) => {
 // Détails d'un deal
 exports.getDealById = async (req, res) => {
   try {
-    const deal = await Deal.findById(req.params.id).populate(
+    const deal = await dealRepository.findById(req.params.id).populate(
       "authorId",
       "username"
     );
@@ -183,7 +184,7 @@ exports.createDeal = async (req, res) => {
   const { title, description, price, originalPrice, url, category } = req.body;
 
   try {
-    const deal = await Deal.create({
+    const deal = await dealRepository.create({
       title,
       description,
       price,
@@ -209,7 +210,7 @@ exports.updateDeal = async (req, res) => {
   }
 
   try {
-    let deal = await Deal.findById(req.params.id);
+    let deal = await dealRepository.findById(req.params.id);
 if (!deal) {
   return res.status(404).json({ message: "Deal non trouvé" });
 }
@@ -259,7 +260,7 @@ if (isAuthor && !isAdmin && deal.status !== "pending") {
 // DELETE /api/deals/:id
 exports.deleteDeal = async (req, res) => {
   try {
-    const deal = await Deal.findById(req.params.id);
+    const deal = await dealRepository.findById(req.params.id);
 if (!deal) {
   return res.status(404).json({ message: "Deal non trouvé" });
 }
@@ -303,7 +304,7 @@ exports.searchDeals = async (req, res) => {
       filter.status = "approved";
     }
 
-    const results = await Deal.find(filter)
+    const results = await dealRepository.findAll(filter)
       .sort({ createdAt: -1 })
       .populate("authorId", "username");
 

@@ -22,15 +22,9 @@ app.use("/api/auth", authRoutes);
 app.use("/api/deals", dealRoutes); // ⬅️ nouveau
 
 const PORT = process.env.PORT || 3000;
+app.use("/api/admin", require("./routes/admin.routes"));
+app.use("/api", commentRoutes);
+
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
-
-const adminRoutes = require("./routes/admin.routes");
-app.use("/api/auth", authRoutes);
-app.use("/api/deals", dealRoutes);
-app.use("/api/admin", adminRoutes); // ⬅️ nouveau
-app.use("/api/auth", authRoutes);
-app.use("/api/deals", dealRoutes);
-app.use("/api/admin", adminRoutes);
-app.use("/api", commentRoutes); // ⬅️ ajoute ça
