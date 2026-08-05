@@ -11,7 +11,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-connectDB();
+if (require.main === module) {
+  connectDB();
+}
 
 app.get("/", (req, res) => {
   res.json({ message: "DealExpress API is running 🚀" });
@@ -25,6 +27,10 @@ const PORT = process.env.PORT || 3000;
 app.use("/api/admin", require("./routes/admin.routes"));
 app.use("/api", commentRoutes);
 
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

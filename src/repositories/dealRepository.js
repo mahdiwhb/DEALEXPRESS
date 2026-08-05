@@ -7,4 +7,6 @@ module.exports = {
   findById: (id) => Deal.findById(id),
   create: (data) => Deal.create(data),
   updateById: (id, data) => Deal.findByIdAndUpdate(id, data, { new: true }),
-  deleteById: (id) => Deal.findByIdAndDelete(id),  countDocuments: (filter = {}) => Deal.countDocuments(filter),};
+  deleteById: (id) => Deal.findByIdAndDelete(id),
+  countDocuments: (filter = {}) => Deal.countDocuments(filter),
+};
